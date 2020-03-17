@@ -20,3 +20,7 @@ ketik `ytpy` pada terminal
 - python versi 3 ke atas
 - module pip, youtube-dl
 - ffmpeg
+
+## Note
+Untuk menjalankan pada terminal linux. diharusnya menggunakan root user
+  * contoh: sudo ytpy
