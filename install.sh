@@ -14,4 +14,4 @@ echo -e -n "cd $(pwd)\npython3 yt.py" > ytpy
 chmod 777 ytpy
 mv ytpy $PREFIX
 clear
-echo -e "Done!\nKetik 'ytpy' untuk menjalankannya"
+echo -e "Done!\nKetik '[sudo] ytpy' untuk menjalankannya"
