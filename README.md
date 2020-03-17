@@ -10,7 +10,7 @@ atau
 buka folder ytpy lalu jalankan install.sh
 ```
 cd ytpy
-bash install
+[sudo] bash install.sh
 ```
 
 ## How to run
@@ -18,5 +18,5 @@ ketik `ytpy` pada terminal
 
 ## requirements
 - python versi 3 ke atas
-- module pip, [youtube-dl](https://pypi.org/project/youtube_dl/)
+- module pip, youtube-dl
 - ffmpeg
