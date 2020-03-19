@@ -1,5 +1,9 @@
 # ytpy
-download audio dan video
+
+## Fitur
+* Unduh musik youtube
+* unduh video youtube
+* Menlanjutkan unduhan sebelumnya
 
 ## How to install
 - [download](https://github.com/r3duc3/ytpy/archive/master.zip)
