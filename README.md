@@ -35,7 +35,7 @@ cd ytpy
 - Pada user variable klik Path > New
 - Ketik C:\ffmpeg
 
-![Add ffmpeg to path](https://i.ibb.co/2ydd72H/Screenshot-33.png)
+![Add ffmpeg to path](https://i.ibb.co/qdppMGV/Screenshot-33.png)
 - [Download](https://github.com/r3duc3/ytpy/archive/master.zip) ytpy
 - extract
 
