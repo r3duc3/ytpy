@@ -36,12 +36,8 @@ cd ytpy
 - Ketik C:\ffmpeg
 
 ![Add ffmpeg to path](https://i.ibb.co/2ydd72H/Screenshot-33.png)
-
 - [Download](https://github.com/r3duc3/ytpy/archive/master.zip) ytpy
 - extract
-
-## How to run
-ketik `ytpy` pada terminal
 
 ## requirements
 - python versi 3 ke atas
