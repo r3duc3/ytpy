@@ -11,6 +11,26 @@ import os, time
 
 w = tuple([chr(27)+'[1;0m'] + list(chr(27)+'[1;3'+str(x)+'m' for x in range(1,7)))
 
+if os.name == 'nt':
+    clean = 'cls'
+    apus = 'del'
+    slash = '\\'
+else:
+    clean = 'clear'
+    apus = 'rm'
+    slash = '/'
+
+def loading(x='', y=False):
+    global a
+    if os.name == 'nt':
+        print(x, end='', flush=True) if x != '' else None
+    else:
+        if y:
+            a = pro(target=lod, args=(x,))
+            a.start()
+        else:
+            a.kill()
+
 def lod(txt):
     print(w[4]+txt,end='')
     while True:
@@ -25,7 +45,7 @@ def lod(txt):
 
 def cls():
     print('\n'*30)
-    os.system('clear')
+    os.system(clean)
     print(f'''{w[1]} /$$     /$$ /$$     /$$$$$$$           
 |  $$   /$$/| $$    | $$__  $$          
  \  $$ /$$//$$$$$$  | $$  \ $$ /$$   /$$
@@ -36,17 +56,16 @@ def cls():
     |__/     \___/  |__/       \____  $$
                                /$$  | $$
                               |  $$$$$$/
-                               \______/ ''')
+                               \______/   v. 3.2''')
 
 cls()
-a = pro(target=lod, args=('Loading',))
-a.start()
+loading('Loading', True)
 try:
     import youtube_dl, readline, json, re, sys
     from urllib.request import urlopen as req, Request
 
 except Exception as ex:
-    a.kill()
+    loading()
     exit(f"Module '{ex.name}' belum terinstall\nsilahkan install dengan command:\n\t[sudo] python3 -m pip install {ex.name}")
 
 ytdl = youtube_dl.YoutubeDL
@@ -82,8 +101,8 @@ def q():
 
 def help():
     print('''Command yang tersedia:
-    - q, exit -> keluar dari program
-    - h, help -> melihat tulisan ini
+    - q, exit
+    - h, help
     - dl -> download audio | video dari url youtube
     - set -> setting tipe, bit, dir
     - cls -> clean screen''')
@@ -161,12 +180,11 @@ def dl():
     idih = input('url: ')
     if idih == '': return
     cls()
-    a = pro(target=lod, args=('getting information',))
-    a.start()
+    loading('Ngambil informasi', True)
     try:
         info = req(f'https://www.youtube.com/oembed?url={idih}')
     except Exception as exc:
-        a.kill()
+        loading()
         print()
         if 'code' in dir(exc):
             print(f'{exc.code} {exc.msg}')
@@ -176,7 +194,7 @@ def dl():
 
     opt = {'quiet' : True}
     quest = ytdl(opt).extract_info(f'{idih}', download=False)
-    title = quest['title']
+    title = re.sub('/', '_',quest['title'])
     form = '251' if tipe == 'mp3' else lsform[bit]
     for x in quest['formats']:
         if x['format_id'] == form:
@@ -184,15 +202,15 @@ def dl():
             break
 
     if os.path.exists(f'{dor}/{title}.{tipe}'):
-        a.kill()
-        ask = input(f'\n{title} exist\nLanjut?[y/n] ')
+        loading()
+        ask = input(f'\n{title} sudah ada\nLanjut?[y/n] ')
         if ask not in ('Y','y'):
             return
         else:
             os.remove(f'{dor}/{title}.{tipe}')
 
-    elif os.path.exists(f'.{title}.download'):
-        a.kill()
+    elif os.path.exists(f'.{title}.{tipe}.download'):
+        loading()
         ask = input('\nMau melanjutkan unduhan yang sudah ada?[y/n] ')
         if ask in ('y','Y'):
             con = True
@@ -201,7 +219,7 @@ def dl():
     open('.0.jpg','wb').write(req(f'https://i.ytimg.com/vi/{quest["id"]}/0.jpg').read())
     if con:
         hed = Request(url)
-        pan = len(open(f'.{title}.download', 'rb').read())
+        pan = len(open(f'.{title}.{tipe}.download', 'rb').read())
         hed.add_header('Range', f'bytes={pan}-')
         resp = req(hed)
         bytesdone = pan
@@ -212,17 +230,17 @@ def dl():
         total = 0
     total += int(resp.info()['Content-Length'].strip())
     chunksize, t0 = 16384, time.time()
-    outfh = open(f'.{title}.download', 'ab')
-    a.kill(); cls()
-    open(f'logs/{quest["title"]}.txt','w').write(f'''{"Information".center(width,"=")}
+    outfh = open(f'.{title}.{tipe}.download', 'ab')
+    loading(); cls()
+    open(f'logs/{title}.txt','w', encoding='utf-8').write(f'''{"Information".center(width,"=")}
 Uploader: {quest["uploader"]}
 Title: {quest["title"]}
 Thumbnail: https://i.ytimg.com/vi/{quest["id"]}/0.jpg
 Description:
 {quest["description"]}
 {"="*width}''')
-    print('\r'+open(f'logs/{quest["title"]}.txt','r').read())
-    print(f'{w[1]}Information saved to logs/{quest["title"]}.txt\n{w[5]}Downloading: {title} ({size(total)})')
+    print('\r'+open(f'logs/{title}.txt','rb').read().decode())
+    print(f'{w[1]}Informasi tersimpan: logs{slash}{title}.txt\n{w[5]}Downloading: {title} ({size(total)})')
     while True:
         chunk = resp.read(chunksize)
         outfh.write(chunk)
@@ -241,14 +259,14 @@ Description:
         print(f'\r{" "*(width)}', end='')
         print('\r{2}[{0}{1}{2}] [{0}{3:.2%}{2}] [{0}{4:4.0f} kbps{2}] [{0}{5:.0f} secs{2}]'.format(w[0], size(bytesdone), w[2], bytesdone * 1.0 / total, rate, eta),end='', flush=True)
     print()
-    a = pro(target=lod, args=('menyelesaikan',)); a.start()
+    loading('Tunggu dong', True)
     if tipe == 'mp3':
-        os.system(f'ffmpeg -nostats -loglevel 0 -i "{outfh.name}" -vn -ab {bit}k -ar 48000 ".out.mp3"; ffmpeg -nostats -loglevel 0 -i ".out.mp3" -i .0.jpg -map 1:0 -map 0:0 -c:a copy -c:v copy -id3v2_version 3 "{dor}/{title}.mp3"; rm .0.jpg "{outfh.name}" ".out.mp3"')
+        os.system(f'ffmpeg -nostats -loglevel 0 -i "{outfh.name}" -vn -ab {bit}k -ar 48000 ".out.mp3" && ffmpeg -nostats -loglevel 0 -i ".out.mp3" -i .0.jpg -map 1:0 -map 0:0 -c:a copy -c:v copy -id3v2_version 3 "{dor}/{title}.mp3" && {apus} .0.jpg "{outfh.name}" ".out.mp3"')
     else:
         open(f'.{title}.audio','wb').write(req(quest['requested_formats'][1]['url']).read())
-        os.system(f'ffmpeg -nostats -loglevel 0 -i "{outfh.name}" -i ".{title}.audio" -c:v copy -map 0:v:0 -map 1:a:0 -b:a 320k "{dor}/{title}.mp4"; rm .0.jpg ".{title}.audio" "{outfh.name}"')
-    a.kill(); cls()
-    print(f'Downloaded: {dor}/{title}.{tipe}')
+        os.system(f'ffmpeg -nostats -loglevel 0 -i "{outfh.name}" -i ".{title}.audio" -c:v copy -map 0:v:0 -map 1:a:0 -b:a 320k "{dor}/{title}.mp4" && {apus} .0.jpg ".{title}.audio" "{outfh.name}"')
+    loading(); cls()
+    print(f'Downloaded: {dor}{slash}{title}.{tipe}')
 
 if not os.path.exists('logs'):
     os.mkdir('logs')
@@ -261,12 +279,9 @@ tipe, bit, dor = op.values()
 if not os.path.exists(dor):
     os.mkdir(dor)
 
-cls();
-a.kill()
-
+cls(); loading()
 while True:
     try:
-        readline.set_auto_history(True)
         print(f'{w[1]}[{tipe}]{w[2]}[{bit}{"Kbps" if tipe == "mp3" else "p"}]{w[3]}[{dor}]')
         main = input(f'{w[6]}>>> {w[0]}')
         main = main.split() if main != '' else main
@@ -274,7 +289,6 @@ while True:
             if main[0] not in cmd:
                 print(f'\x1b[7;31mtidak ada command "{main[0]}"{w[0]}')
             else:
-                readline.set_auto_history(False)
                 exec(f'{main[0]}()')
     except:
-        exit('\n')
+        exit()
