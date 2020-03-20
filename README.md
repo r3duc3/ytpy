@@ -22,11 +22,13 @@ cd ytpy
 ## Install on windows
 -[Download](https://www.python.org/downloads/) Python versi 3 ke atas
 - Install python, centang add python to PATH
-![Install python](https://i.ibb.co/1dTrSv3/IMG-20200320-145220.jpg)
+
+![Install python](https://i.ibb.co/3McpJrw/IMG-20200320-145220.jpg)
 - [Download](https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-4.2.2-win64-static.zip) ffmpeg
 - buka file zip
 - pilih folder bin
 - "extract to" C:\ffmpeg
+
 ![Install ffmpeg](https://i.ibb.co/XJ3Gcr5/IMG-20200320-145008.jpg)
 
 ## How to run
