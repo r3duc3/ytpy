@@ -1,5 +1,7 @@
 # ytpy
 
+**Sekarang support cmd**
+
 ## Fitur
 * Unduh musik youtube
 * unduh video youtube
@@ -17,6 +19,12 @@ cd ytpy
 [sudo] bash install.sh
 ```
 
+## Install on windows
+-[Download](https://www.python.org/downloads/) Python versi 3 ke atas
+- Install python, centang add python to PATH
+- [Download](https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-4.2.2-win64-static.zip) ffmpeg
+- Ikuti langkah pada foto
+
 ## How to run
 ketik `ytpy` pada terminal
 
@@ -28,3 +36,8 @@ ketik `ytpy` pada terminal
 ## Note
 Untuk menjalankan pada terminal linux. diharusnya menggunakan root user
   * contoh: sudo ytpy
+
+## Tested on
+- terminal, kali linux 2020.1
+- termux, Android
+- cmd, Windows 10
