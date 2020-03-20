@@ -20,7 +20,7 @@ cd ytpy
 ```
 
 ## Install on windows
--[Download](https://www.python.org/downloads/) Python versi 3 ke atas
+- [Download](https://www.python.org/downloads/) Python versi 3 ke atas
 - Install python, centang add python to PATH
 
 ![Install python](https://i.ibb.co/3McpJrw/IMG-20200320-145220.jpg)
