@@ -30,10 +30,15 @@ cd ytpy
 - "extract to" C:\ffmpeg
 
 ![Install ffmpeg](https://i.ibb.co/XJ3Gcr5/IMG-20200320-145008.jpg)
-- [Download](https://github.com/r3duc3/ytpy/archive/master.zip) ytpy
-- extract dengan nama folder ytpy
-- Jalankan install.bat
+- buka control panel > System and Security > System > Advanced system settings
+- klik Environment Variables
+- Pada user variable klik Path > New
+- Ketik C:\ffmpeg
 
+![Add ffmpeg to path](https://i.ibb.co/2ydd72H/Screenshot-33.png)
+
+- [Download](https://github.com/r3duc3/ytpy/archive/master.zip) ytpy
+- extract
 
 ## How to run
 ketik `ytpy` pada terminal
