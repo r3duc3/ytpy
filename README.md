@@ -27,8 +27,7 @@ cd ytpy
 - buka file zip
 - pilih folder bin
 - "extract to" C:\ffmpeg
-![Install ffmpeg](https://i.ibb.co/zf7tqT2/IMG-20200320-145008.jpg)
-
+![Install ffmpeg](https://i.ibb.co/XJ3Gcr5/IMG-20200320-145008.jpg)
 
 ## How to run
 ketik `ytpy` pada terminal
